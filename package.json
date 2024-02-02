@@ -28,8 +28,8 @@
   },
   "homepage": "https://github.com/PsychicCat/monero-nodejs#readme",
   "dependencies": {
-    "request": "^2.85.0",
-    "request-promise": "^4.2.2"
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
   },
   "devDependencies": {
     "mocha": "^2.4.5",
