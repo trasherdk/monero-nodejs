@@ -1,0 +1,11 @@
+{
+  "signal": "SIGTERM",
+  "env": {
+    "NODE_ENV": "development",
+    "NODE_OPTIONS": "--use-openssl-ca"
+  },
+  "ext": "ts,js",
+  "execMap": {
+    "ts": "node --no-warnings --loader ts-node/esm"
+  }
+}
