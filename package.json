@@ -14,13 +14,9 @@
     "Monero",
     "crypto",
     "currency",
-    "poloniex",
-    "shapeshift",
     "cryptocurrency",
     "Node.js",
-    "monero-wallet-rpc",
-    "bitcoin",
-    "bitmonerod"
+    "monero-wallet-rpc"
   ],
   "license": "MIT",
   "bugs": {
@@ -28,7 +24,7 @@
   },
   "homepage": "https://github.com/PsychicCat/monero-nodejs#readme",
   "dependencies": {
-    "axios": "^1.6.8",
+    "axios": "^1.7.5",
     "dotenv": "^16.4.5"
   },
   "type": "module"
