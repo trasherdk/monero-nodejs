@@ -16,7 +16,7 @@ describe('moneroWallet', () => {
       hostname: WALLET_RPC_IP,
       port: WALLET_RPC_PORT ? parseInt(WALLET_RPC_PORT, 10) : undefined,
       ssl: true,
-      rejectUnauthorized: false
+      rejectUnauthorized: false,
     });
     console.log('Connecting to', WALLET_RPC_IP + ':' + WALLET_RPC_PORT);
     try {
@@ -34,7 +34,11 @@ describe('moneroWallet', () => {
     if (!rpcAvailable) return t.skip('RPC not available');
     const result = await wallet.create_wallet(WALLET_RPC_NAME);
     if (result && typeof result === 'object' && 'error' in result) {
-      assert.strictEqual((result as { error: { code: number } }).error.code, -21, 'Expected error code -21 for existing wallet');
+      assert.strictEqual(
+        (result as { error: { code: number } }).error.code,
+        -21,
+        'Expected error code -21 for existing wallet'
+      );
     } else {
       assert.strictEqual(typeof result, 'object', 'Result should be an object');
     }
@@ -56,8 +60,15 @@ describe('moneroWallet', () => {
     if (!rpcAvailable) return t.skip('RPC not available');
     const result = await wallet.address();
     assert.strictEqual(typeof result.address, 'string', 'Address should be a string');
-    assert.strictEqual(result.address.length, 95, 'Standard Monero address should be 95 characters');
-    assert.ok(result.address.match(/^[458]/), 'Monero address should start with 4 (mainnet), 5 (stagenet), or 8 (subaddress)');
+    assert.strictEqual(
+      result.address.length,
+      95,
+      'Standard Monero address should be 95 characters'
+    );
+    assert.ok(
+      result.address.match(/^[458]/),
+      'Monero address should start with 4 (mainnet), 5 (stagenet), or 8 (subaddress)'
+    );
   });
 
   it('store() should save the wallet', async (t: TestContext) => {
