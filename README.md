@@ -22,44 +22,47 @@ git clone https://github.com/PsychicCat/monero-nodejs.git
 
 ## Initializing a wallet
 
-Require the module:
+Import the module:
 
-```
-var moneroWallet = require('monero-nodejs');
+```javascript
+import Wallet from 'monero-nodejs';
 ```
 
 Create a new instance of the wallet:
 
-```
-var Wallet = new moneroWallet();
+```javascript
+const wallet = new Wallet();
 ```
 
-This creates a wallet using the following simplewallet default RPC settings:
+This creates a wallet using the following monero-wallet-rpc default RPC settings:
 
 * `hostname` - '127.0.0.1'
 * `port` - 18082
 
 To connect to a wallet with different settings, pass in the values:
 
-```
-var Wallet = new moneroWallet($HOSTNAME, $PORT);
+```javascript
+const wallet = new Wallet($HOSTNAME, $PORT);
 ```
 
 **Note: versions of monero-nodejs prior to 3.0 require `hostname` with the 'http://' prefix, 3.0 and greater only require the IP address.**
 
 ## Testing
 
-Some basic tests can now be run locally to verify the library and your simplewallet instance are communicating. The tests assume simplewallet will be listening at the default config settings. Tests are run via mocha.
+Some basic tests can now be run locally to verify the library and your monero-wallet-rpc instance are communicating. The tests assume monero-wallet-rpc will be listening at the default config settings. Tests use Node.js native test runner.
 To run the tests, clone the repository and then:
 
+```
 npm install
 npm test
+```
 
 ## Example Usage
 
-    Wallet.balance().then(function(balance) {
-        console.log(balance);
-    });
+```javascript
+const balance = await wallet.balance();
+console.log(balance);
+```
 
 ## Wallet Methods
 
@@ -109,6 +112,22 @@ Example response:
 ```
 
 Returns an object with `error` field if unsuccessful.
+
+### close_wallet
+
+Usage:
+
+```
+Wallet.close_wallet();
+```
+
+Closes the currently open wallet. The monero-wallet-rpc process remains running and can accept connections to open other wallets.
+
+Example response:
+
+```
+{}
+```
 
 ### balance
 
@@ -357,4 +376,4 @@ Usage:
 Wallet.stopWallet();
 ```
 
-Cleanly shuts down the current simplewallet process.
+Cleanly shuts down the current monero-wallet-rpc process.
