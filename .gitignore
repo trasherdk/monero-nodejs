@@ -2,4 +2,5 @@ node_modules
 .env*
 !.env.example
 data
+dist
 pnpm-lock.yaml
