@@ -1,11 +1,19 @@
 'use strict';
-var moneroWallet = require('../lib/wallet');
+import dotenv from 'dotenv';
+import assert from 'node:assert';
+import test from 'node:test';
 
-describe('moneroWallet', () => {
-    const Wallet = new moneroWallet('127.0.0.1', 28082, 'user', 'pass'); // Edit to match your own hostname, port, RPC username (if RPC login enabled,) and RPC password.
+import Wallet from '../lib/wallet-axios.js';
+
+dotenv.config({ path: './.env.dev' });
+const { WALLET_RPC_NAME, WALLET_RPC_IP, WALLET_RPC_PORT } = process.env;
+
+let wallet
+test('moneroWallet', () => {
+    wallet = new Wallet(WALLET_RPC_IP, WALLET_RPC_PORT); // Edit to match your own hostname, port, RPC username (if RPC login enabled,) and RPC password.
 
     // Disabled these checks because users may access unique daemon hostname:port combinations.
-    // describe('constructor', () => {
+    // test('constructor', () => {
     //     it('should have default host set to `127.0.0.1`', () => {
     //         new moneroWallet().hostname.should.equal('127.0.0.1');
     //     });
@@ -15,10 +23,10 @@ describe('moneroWallet', () => {
     //     // });
     // });
 
-    describe('methods', () => {
-        describe('create_wallet()', () => {
+    test('methods', () => {
+        test('create_wallet()', () => {
             it('should create a new wallet monero_wallet (if monero_wallet doesn\'t exist)', (done) => {
-                Wallet.create_wallet('monero_wallet').then(function(result){
+                wallet.create_wallet('monero_wallet').then(function (result) {
                     if (result.hasOwnProperty('error')) {
                         if (result.hasOwnProperty('error')) {
                             if (result.error.code == -21) {
@@ -33,27 +41,27 @@ describe('moneroWallet', () => {
             })
         })
 
-        describe('open_wallet()', () => {
+        test('open_wallet()', () => {
             it('should open monero_wallet', (done) => {
-                Wallet.open_wallet('monero_wallet').then(function(result){
+                wallet.open_wallet('monero_wallet').then(function (result) {
                     result.should.be.a.Object();
                     done();
                 })
             })
         })
 
-        describe('balance()', () => {
+        test('balance()', () => {
             it('should retrieve the account balance', (done) => {
-                Wallet.balance().then(function(result){
+                wallet.balance().then(function (result) {
                     result.balance.should.be.a.Number();
                     done();
                 })
             })
         })
 
-        describe('address()', () => {
+        test('address()', () => {
             it('should return the account address', (done) => {
-                Wallet.address().then(function(result){
+                wallet.address().then(function (result) {
                     result.address.should.be.a.String();
                     done();
                 })

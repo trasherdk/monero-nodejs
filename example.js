@@ -1,7 +1,7 @@
 import Wallet from './lib/wallet-axios.js';
 import dotenv from 'dotenv';
 
-dotenv.config({ path: './.env.dev' });
+dotenv.config({ path: './.env.dev', override: true });
 
 const { WALLET_RPC_NAME, WALLET_RPC_IP, WALLET_RPC_PORT } = process.env;
 
